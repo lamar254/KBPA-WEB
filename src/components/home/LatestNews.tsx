@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getPayloadClient } from "@/lib/payload";
 
@@ -15,6 +16,7 @@ export default async function LatestNews() {
     where: { status: { equals: "published" } },
     sort: "-publishedAt",
     limit: 3,
+    depth: 1,
   });
 
   if (docs.length === 0) return null;
@@ -46,7 +48,19 @@ export default async function LatestNews() {
               href={`/news/${item.slug}`}
               className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-kbpa-white transition-colors hover:border-kbpa-orange"
             >
-              <div className="aspect-[16/10] w-full bg-kbpa-black/90" />
+              <div className="relative aspect-[16/10] w-full bg-kbpa-black/90">
+                {item.featuredImage &&
+                  typeof item.featuredImage === "object" &&
+                  item.featuredImage.url && (
+                    <Image
+                      src={item.featuredImage.url}
+                      alt={item.featuredImage.alt ?? item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                    />
+                  )}
+              </div>
               <div className="flex flex-1 flex-col p-5">
                 <span className="text-xs font-semibold uppercase tracking-wide text-kbpa-orange">
                   {CATEGORY_LABELS[item.category] ?? item.category}

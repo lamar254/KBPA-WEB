@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { getPayloadClient } from "@/lib/payload";
@@ -25,6 +26,7 @@ export default async function NewsArticlePage({ params }: Args) {
       status: { equals: "published" },
     },
     limit: 1,
+    depth: 1,
   });
 
   const article = docs[0];
@@ -49,6 +51,20 @@ export default async function NewsArticlePage({ params }: Args) {
           })}
         </p>
       )}
+      {article.featuredImage &&
+        typeof article.featuredImage === "object" &&
+        article.featuredImage.url && (
+          <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl bg-kbpa-black/90">
+            <Image
+              src={article.featuredImage.url}
+              alt={article.featuredImage.alt ?? article.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 768px, 100vw"
+              priority
+            />
+          </div>
+        )}
       <div className="prose prose-neutral mt-8 max-w-none">
         <RichText data={article.body} />
       </div>
