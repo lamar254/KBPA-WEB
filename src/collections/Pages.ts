@@ -1,0 +1,36 @@
+import type { CollectionConfig } from "payload";
+import { isAdminOrEditor, isPublisherField } from "@/access/roles";
+
+// Flexible content for static pages (About, What We Do, Advocacy) so staff
+// can edit copy without a code change.
+export const Pages: CollectionConfig = {
+  slug: "pages",
+  admin: {
+    useAsTitle: "title",
+    defaultColumns: ["title", "slug", "status"],
+    group: "Content",
+  },
+  access: {
+    read: ({ req: { user } }) =>
+      user ? true : { status: { equals: "published" } },
+    create: isAdminOrEditor,
+    update: isAdminOrEditor,
+    delete: isAdminOrEditor,
+  },
+  fields: [
+    { name: "title", type: "text", required: true },
+    { name: "slug", type: "text", required: true, unique: true, index: true },
+    { name: "body", type: "richText" },
+    {
+      name: "status",
+      type: "select",
+      required: true,
+      defaultValue: "draft",
+      access: { update: isPublisherField },
+      options: [
+        { label: "Draft", value: "draft" },
+        { label: "Published", value: "published" },
+      ],
+    },
+  ],
+};
