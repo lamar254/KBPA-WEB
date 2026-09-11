@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { getPayloadClient } from "@/lib/payload";
+import { richTextProseClasses } from "@/lib/richTextStyles";
 
 export default async function CmsPage({ slug }: { slug: string }) {
   const payload = await getPayloadClient();
@@ -19,7 +20,7 @@ export default async function CmsPage({ slug }: { slug: string }) {
         {page.title}
       </h1>
       {page.body && (
-        <div className="prose prose-neutral mt-8 max-w-none">
+        <div className={richTextProseClasses}>
           <RichText data={page.body} />
         </div>
       )}

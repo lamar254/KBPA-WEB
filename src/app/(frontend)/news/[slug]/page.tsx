@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { getPayloadClient } from "@/lib/payload";
+import { richTextProseClasses } from "@/lib/richTextStyles";
 
 export const revalidate = 60;
 
@@ -65,7 +66,7 @@ export default async function NewsArticlePage({ params }: Args) {
             />
           </div>
         )}
-      <div className="prose prose-neutral mt-8 max-w-none">
+      <div className={richTextProseClasses}>
         <RichText data={article.body} />
       </div>
     </article>
