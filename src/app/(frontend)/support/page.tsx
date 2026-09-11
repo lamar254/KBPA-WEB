@@ -13,8 +13,8 @@ export default function SupportPage() {
       </h1>
       <p className="mt-4 text-base text-black/60">
         Whether it&rsquo;s a legal question, a welfare concern, a contract
-        dispute, or something else &mdash; reach out confidentially and a
-        member of KBPA staff will follow up.
+        dispute, or something else, reach out confidentially and a member
+        of KBPA staff will follow up.
       </p>
 
       <div className="mt-10">

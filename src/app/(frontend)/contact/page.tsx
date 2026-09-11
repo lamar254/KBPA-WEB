@@ -12,9 +12,9 @@ export default function ContactPage() {
         Get in touch
       </h1>
       <p className="mt-4 text-base text-black/60">
-        General questions, media enquiries, or partnership ideas &mdash;
-        send us a message and we&rsquo;ll respond as soon as we can. Looking
-        for confidential player support instead? Visit{" "}
+        General questions, media enquiries, or partnership ideas: send us a
+        message and we&rsquo;ll respond as soon as we can. Looking for
+        confidential player support instead? Visit{" "}
         <a href="/support" className="font-semibold text-kbpa-orange hover:underline">
           Get Support
         </a>

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from "payload";
 import { isAdmin, isSupportStaff } from "@/access/roles";
 
-// Confidential enquiry workflow. Never exposed publicly beyond create —
+// Confidential enquiry workflow. Never exposed publicly beyond create;
 // read/update/delete are restricted to Support Staff and Admins.
 export const SupportCases: CollectionConfig = {
   slug: "support-cases",
