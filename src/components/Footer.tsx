@@ -70,7 +70,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Kenya Basketball Players Association. All rights reserved.
           </p>
           <p className="text-xs text-white/40">
-            Site by Courtside Wakili
+            Site by Cognitix
           </p>
         </div>
       </div>
