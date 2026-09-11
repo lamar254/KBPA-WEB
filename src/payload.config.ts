@@ -13,6 +13,7 @@ import { Events } from "@/collections/Events";
 import { Resources } from "@/collections/Resources";
 import { Partners } from "@/collections/Partners";
 import { Pages } from "@/collections/Pages";
+import { SiteSettings } from "@/globals/SiteSettings";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -32,6 +33,7 @@ export default buildConfig({
     Partners,
     Pages,
   ],
+  globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

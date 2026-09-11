@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { getPayloadClient } from "@/lib/payload";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -10,14 +12,33 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Header() {
+export default async function Header() {
+  const payload = await getPayloadClient();
+  const settings = await payload.findGlobal({
+    slug: "site-settings",
+    depth: 1,
+  });
+  const logo =
+    settings.logo && typeof settings.logo === "object" ? settings.logo : null;
+
   return (
     <header className="sticky top-0 z-50 bg-kbpa-black text-kbpa-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <span className="text-lg font-extrabold tracking-tight sm:text-xl">
-            KBPA
-          </span>
+          {logo && logo.url ? (
+            <Image
+              src={logo.url}
+              alt={logo.alt ?? "KBPA"}
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-full object-cover"
+              priority
+            />
+          ) : (
+            <span className="text-lg font-extrabold tracking-tight sm:text-xl">
+              KBPA
+            </span>
+          )}
           <span className="hidden text-xs font-medium text-white/60 sm:inline">
             Kenya Basketball Players Association
           </span>
