@@ -22,6 +22,20 @@ export const Pages: CollectionConfig = {
     { name: "slug", type: "text", required: true, unique: true, index: true },
     { name: "body", type: "richText" },
     {
+      name: "sections",
+      type: "array",
+      label: "Sections (alternating layout with images)",
+      admin: {
+        description:
+          "Optional. If used, these render as alternating left/right sections instead of (or in addition to, below) the Body field above.",
+      },
+      fields: [
+        { name: "heading", type: "text" },
+        { name: "body", type: "richText", required: true },
+        { name: "image", type: "upload", relationTo: "media" },
+      ],
+    },
+    {
       name: "status",
       type: "select",
       required: true,

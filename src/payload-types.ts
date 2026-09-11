@@ -356,6 +356,31 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Optional. If used, these render as alternating left/right sections instead of (or in addition to, below) the Body field above.
+   */
+  sections?:
+    | {
+        heading?: string | null;
+        body: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   status: 'draft' | 'published';
   updatedAt: string;
   createdAt: string;
@@ -627,6 +652,14 @@ export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   body?: T;
+  sections?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        image?: T;
+        id?: T;
+      };
   status?: T;
   updatedAt?: T;
   createdAt?: T;
