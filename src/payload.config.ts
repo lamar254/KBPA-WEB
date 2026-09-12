@@ -41,7 +41,13 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || "",
+      // DATABASE_URI is our own name; POSTGRES_URL/DATABASE_URL are what
+      // managed providers (Vercel Postgres/Neon, etc.) inject automatically.
+      connectionString:
+        process.env.DATABASE_URI ||
+        process.env.POSTGRES_URL ||
+        process.env.DATABASE_URL ||
+        "",
     },
   }),
   cors: [process.env.NEXT_PUBLIC_SERVER_URL || ""].filter(Boolean),
