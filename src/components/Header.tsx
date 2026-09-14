@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getPayloadClient } from "@/lib/payload";
+import MobileNav from "@/components/MobileNav";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -69,19 +70,8 @@ export default async function Header() {
           >
             Join KBPA
           </Link>
+          <MobileNav links={NAV_LINKS} />
         </div>
-      </div>
-
-      <div className="flex gap-4 overflow-x-auto border-t border-white/10 px-4 py-2 lg:hidden">
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="shrink-0 text-xs font-medium text-white/70 hover:text-kbpa-orange"
-          >
-            {link.label}
-          </Link>
-        ))}
       </div>
     </header>
   );
