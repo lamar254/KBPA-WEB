@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { isAdminOrEditor, isPublisherField, isStaffField } from "@/access/roles";
+import { slugify } from "@/lib/slugify";
 
 export const News: CollectionConfig = {
   slug: "news",
@@ -19,7 +20,17 @@ export const News: CollectionConfig = {
   },
   fields: [
     { name: "title", type: "text", required: true },
-    { name: "slug", type: "text", required: true, unique: true, index: true },
+    {
+      name: "slug",
+      type: "text",
+      required: true,
+      unique: true,
+      index: true,
+      admin: {
+        description:
+          "URL-safe identifier. Auto-generated from the title if left as typed with spaces/capitals.",
+      },
+    },
     { name: "excerpt", type: "textarea" },
     { name: "body", type: "richText", required: true },
     { name: "featuredImage", type: "upload", relationTo: "media" },
@@ -54,4 +65,14 @@ export const News: CollectionConfig = {
       access: { update: isStaffField },
     },
   ],
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data) {
+          data.slug = slugify(data.slug || data.title || "");
+        }
+        return data;
+      },
+    ],
+  },
 };

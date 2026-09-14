@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { isAdminOrEditor, isPublisherField } from "@/access/roles";
+import { slugify } from "@/lib/slugify";
 
 // Flexible content for static pages (About, What We Do, Advocacy) so staff
 // can edit copy without a code change.
@@ -47,4 +48,16 @@ export const Pages: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        // Sanitize whatever was typed, but never fall back to title here:
+        // fixed routes (About, What We Do, ...) rely on exact known slugs.
+        if (data?.slug) {
+          data.slug = slugify(data.slug);
+        }
+        return data;
+      },
+    ],
+  },
 };

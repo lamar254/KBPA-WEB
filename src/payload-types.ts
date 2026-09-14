@@ -255,6 +255,9 @@ export interface SupportCase {
 export interface News {
   id: number;
   title: string;
+  /**
+   * URL-safe identifier. Auto-generated from the title if left as typed with spaces/capitals.
+   */
   slug: string;
   excerpt?: string | null;
   body: {
