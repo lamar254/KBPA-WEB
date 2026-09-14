@@ -55,12 +55,13 @@ export default async function NewsArticlePage({ params }: Args) {
       {article.featuredImage &&
         typeof article.featuredImage === "object" &&
         article.featuredImage.url && (
-          <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl bg-kbpa-black/90">
+          <div className="relative mt-8 w-full overflow-hidden rounded-2xl bg-kbpa-off-white">
             <Image
               src={article.featuredImage.url}
               alt={article.featuredImage.alt ?? article.title}
-              fill
-              className="object-cover"
+              width={article.featuredImage.width ?? 1600}
+              height={article.featuredImage.height ?? 900}
+              className="h-auto w-full object-contain"
               sizes="(min-width: 768px) 768px, 100vw"
               priority
             />
