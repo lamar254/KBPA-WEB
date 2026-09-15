@@ -52,7 +52,7 @@ export default async function NewsIndexPage({ searchParams }: Args) {
 
       <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[200px_1fr]">
         <aside>
-          <nav className="flex gap-2 overflow-x-auto lg:flex-col lg:gap-1 lg:overflow-visible">
+          <nav className="flex flex-wrap gap-2 lg:flex-col lg:flex-nowrap lg:gap-1">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.value;
               const href = cat.value ? `/news?category=${cat.value}` : "/news";
@@ -60,10 +60,10 @@ export default async function NewsIndexPage({ searchParams }: Args) {
                 <Link
                   key={cat.value || "all"}
                   href={href}
-                  className={`shrink-0 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                  className={`rounded-full border px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap transition-colors lg:rounded-lg lg:border-0 lg:px-3 lg:py-2 ${
                     isActive
-                      ? "bg-kbpa-black text-kbpa-white"
-                      : "text-black/60 hover:bg-kbpa-off-white hover:text-kbpa-black"
+                      ? "border-kbpa-black bg-kbpa-black text-kbpa-white"
+                      : "border-black/15 text-black/60 hover:bg-kbpa-off-white hover:text-kbpa-black lg:border-0"
                   }`}
                 >
                   {cat.label}
