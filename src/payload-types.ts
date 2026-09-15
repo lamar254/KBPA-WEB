@@ -76,6 +76,7 @@ export interface Config {
     resources: Resource;
     partners: Partner;
     pages: Page;
+    games: Game;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +93,7 @@ export interface Config {
     resources: ResourcesSelect<false> | ResourcesSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    games: GamesSelect<false> | GamesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -397,6 +399,30 @@ export interface Page {
   createdAt: string;
 }
 /**
+ * Upcoming games shown in the ticker below the header.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "games".
+ */
+export interface Game {
+  id: number;
+  homeTeamName: string;
+  homeTeamLogo?: (number | null) | Media;
+  awayTeamName: string;
+  awayTeamLogo?: (number | null) | Media;
+  kickoffAt: string;
+  /**
+   * TV/streaming channel showing the game.
+   */
+  channel?: string | null;
+  /**
+   * Optional link to watch on YouTube.
+   */
+  youtubeUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -455,6 +481,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'games';
+        value: number | Game;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -673,6 +703,21 @@ export interface PagesSelect<T extends boolean = true> {
         id?: T;
       };
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "games_select".
+ */
+export interface GamesSelect<T extends boolean = true> {
+  homeTeamName?: T;
+  homeTeamLogo?: T;
+  awayTeamName?: T;
+  awayTeamLogo?: T;
+  kickoffAt?: T;
+  channel?: T;
+  youtubeUrl?: T;
   updatedAt?: T;
   createdAt?: T;
 }

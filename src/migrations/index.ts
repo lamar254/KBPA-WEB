@@ -1,5 +1,6 @@
 import * as migration_20260912_171950_initial from './20260912_171950_initial';
 import * as migration_20260915_092011_add_featured_video from './20260915_092011_add_featured_video';
+import * as migration_20260915_110005_add_games_collection from './20260915_110005_add_games_collection';
 
 export const migrations = [
   {
@@ -10,6 +11,11 @@ export const migrations = [
   {
     up: migration_20260915_092011_add_featured_video.up,
     down: migration_20260915_092011_add_featured_video.down,
-    name: '20260915_092011_add_featured_video'
+    name: '20260915_092011_add_featured_video',
+  },
+  {
+    up: migration_20260915_110005_add_games_collection.up,
+    down: migration_20260915_110005_add_games_collection.down,
+    name: '20260915_110005_add_games_collection'
   },
 ];

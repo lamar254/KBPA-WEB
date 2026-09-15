@@ -14,6 +14,7 @@ import { Events } from "@/collections/Events";
 import { Resources } from "@/collections/Resources";
 import { Partners } from "@/collections/Partners";
 import { Pages } from "@/collections/Pages";
+import { Games } from "@/collections/Games";
 import { SiteSettings } from "@/globals/SiteSettings";
 
 const filename = fileURLToPath(import.meta.url);
@@ -33,6 +34,7 @@ export default buildConfig({
     Resources,
     Partners,
     Pages,
+    Games,
   ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
