@@ -32,7 +32,7 @@ export default async function Header() {
               alt={logo.alt ?? "KBPA"}
               width={200}
               height={200}
-              className="h-10 w-auto object-contain"
+              className="h-20 w-auto object-contain"
               priority
             />
           ) : (
