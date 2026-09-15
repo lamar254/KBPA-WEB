@@ -768,9 +768,13 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteSetting {
   id: number;
   /**
-   * Shown in the site header.
+   * White/light logo, for use on dark backgrounds (e.g. the site header).
    */
   logo?: (number | null) | Media;
+  /**
+   * Black/dark logo, for use on light or white backgrounds.
+   */
+  logoDark?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -780,6 +784,7 @@ export interface SiteSetting {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
+  logoDark?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

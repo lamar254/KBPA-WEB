@@ -30,9 +30,9 @@ export default async function Header() {
             <Image
               src={logo.url}
               alt={logo.alt ?? "KBPA"}
-              width={140}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={200}
+              height={200}
+              className="h-10 w-auto object-contain"
               priority
             />
           ) : (

@@ -13,7 +13,19 @@ export const SiteSettings: GlobalConfig = {
       name: "logo",
       type: "upload",
       relationTo: "media",
-      admin: { description: "Shown in the site header." },
+      admin: {
+        description:
+          "White/light logo, for use on dark backgrounds (e.g. the site header).",
+      },
+    },
+    {
+      name: "logoDark",
+      type: "upload",
+      relationTo: "media",
+      admin: {
+        description:
+          "Black/dark logo, for use on light or white backgrounds.",
+      },
     },
   ],
 };
