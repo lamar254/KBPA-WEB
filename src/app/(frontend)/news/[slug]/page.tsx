@@ -52,7 +52,19 @@ export default async function NewsArticlePage({ params }: Args) {
           })}
         </p>
       )}
-      {article.featuredImage &&
+      {article.featuredVideo &&
+      typeof article.featuredVideo === "object" &&
+      article.featuredVideo.url ? (
+        <div className="relative mt-8 w-full overflow-hidden rounded-2xl bg-kbpa-black">
+          <video
+            src={article.featuredVideo.url}
+            controls
+            className="h-auto w-full"
+            preload="metadata"
+          />
+        </div>
+      ) : (
+        article.featuredImage &&
         typeof article.featuredImage === "object" &&
         article.featuredImage.url && (
           <div className="relative mt-8 w-full overflow-hidden rounded-2xl bg-kbpa-off-white">
@@ -66,7 +78,8 @@ export default async function NewsArticlePage({ params }: Args) {
               priority
             />
           </div>
-        )}
+        )
+      )}
       <div className={richTextProseClasses}>
         <RichText data={article.body} />
       </div>

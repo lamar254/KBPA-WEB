@@ -35,6 +35,15 @@ export const News: CollectionConfig = {
     { name: "body", type: "richText", required: true },
     { name: "featuredImage", type: "upload", relationTo: "media" },
     {
+      name: "featuredVideo",
+      type: "upload",
+      relationTo: "media",
+      admin: {
+        description:
+          "Optional. If set, this plays instead of the featured image on the article.",
+      },
+    },
+    {
       name: "category",
       type: "select",
       required: true,

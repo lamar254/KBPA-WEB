@@ -276,6 +276,10 @@ export interface News {
     [k: string]: unknown;
   };
   featuredImage?: (number | null) | Media;
+  /**
+   * Optional. If set, this plays instead of the featured image on the article.
+   */
+  featuredVideo?: (number | null) | Media;
   category: 'news' | 'player-story' | 'statement' | 'event-recap';
   status: 'draft' | 'in-review' | 'published';
   publishedAt?: string | null;
@@ -604,6 +608,7 @@ export interface NewsSelect<T extends boolean = true> {
   excerpt?: T;
   body?: T;
   featuredImage?: T;
+  featuredVideo?: T;
   category?: T;
   status?: T;
   publishedAt?: T;
