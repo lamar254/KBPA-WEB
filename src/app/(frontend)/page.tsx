@@ -6,6 +6,8 @@ import LatestNews from "@/components/home/LatestNews";
 import MembershipCta from "@/components/home/MembershipCta";
 import Partners from "@/components/home/Partners";
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <>

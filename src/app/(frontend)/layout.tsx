@@ -15,6 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "KBPA | Kenya Basketball Players Association",
   description:
