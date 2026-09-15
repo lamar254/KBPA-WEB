@@ -1,6 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getPayloadClient } from "@/lib/payload";
-import NewsCarousel, { type NewsCardData } from "./NewsCarousel";
+
+const CATEGORY_LABELS: Record<string, string> = {
+  news: "News",
+  "player-story": "Player Story",
+  statement: "Statement",
+  "event-recap": "Event Recap",
+};
 
 export default async function LatestNews() {
   const payload = await getPayloadClient();
@@ -8,35 +15,11 @@ export default async function LatestNews() {
     collection: "news",
     where: { status: { equals: "published" } },
     sort: "-publishedAt",
-    limit: 12,
+    limit: 3,
     depth: 1,
   });
 
   if (docs.length === 0) return null;
-
-  const items: NewsCardData[] = docs.map((item) => ({
-    id: item.id,
-    slug: item.slug,
-    title: item.title,
-    category: item.category,
-    publishedAt: item.publishedAt ?? null,
-    imageUrl:
-      item.featuredImage &&
-      typeof item.featuredImage === "object" &&
-      item.featuredImage.url
-        ? item.featuredImage.url
-        : null,
-    imageAlt:
-      item.featuredImage && typeof item.featuredImage === "object"
-        ? (item.featuredImage.alt ?? null)
-        : null,
-    videoUrl:
-      item.featuredVideo &&
-      typeof item.featuredVideo === "object" &&
-      item.featuredVideo.url
-        ? item.featuredVideo.url
-        : null,
-  }));
 
   return (
     <section className="bg-kbpa-off-white py-16 sm:py-20">
@@ -58,7 +41,46 @@ export default async function LatestNews() {
           </Link>
         </div>
 
-        <NewsCarousel items={items} />
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {docs.map((item) => (
+            <Link
+              key={item.id}
+              href={`/news/${item.slug}`}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-kbpa-white transition-colors hover:border-kbpa-orange"
+            >
+              <div className="relative aspect-[16/10] w-full bg-kbpa-black/90">
+                {item.featuredImage &&
+                  typeof item.featuredImage === "object" &&
+                  item.featuredImage.url && (
+                    <Image
+                      src={item.featuredImage.url}
+                      alt={item.featuredImage.alt ?? item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                    />
+                  )}
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <span className="text-xs font-semibold uppercase tracking-wide text-kbpa-orange">
+                  {CATEGORY_LABELS[item.category] ?? item.category}
+                </span>
+                <h3 className="mt-2 text-base font-bold text-kbpa-black">
+                  {item.title}
+                </h3>
+                {item.publishedAt && (
+                  <span className="mt-auto pt-4 text-xs text-black/40">
+                    {new Date(item.publishedAt).toLocaleDateString("en-KE", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
